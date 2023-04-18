@@ -1,20 +1,40 @@
 <script lang="ts">
-	import ContentBoxMain from '../components/contentBoxMain.svelte';
 	import { fade } from 'svelte/transition';
+	import ContentItem from '../components/contentItem.svelte';
+	import { goto } from '$app/navigation';
+	import About from './about/about.svelte';
+	import Router from 'svelte-spa-router';
 
-	export const focusContent = () => {
+	function itemClicked(route: string) {
+		focusContent();
+	}
+
+	const focusContent = () => {
 		contentFocused = true;
 	};
-
-	export const defocusContent = () => {
+	const defocusContent = () => {
 		contentFocused = false;
 	};
 
-	let contentFocused = true;
+	const testImg = 'src/assets/bubbles.png';
+	const homeContent: any[] = [
+		{ title: 'About', desc: 'Description here', image: testImg, route: '/about' },
+		{ title: 'Code', desc: 'Also another description here', image: testImg, route: '/code' },
+		{ title: 'Art', desc: 'Also another description here', image: testImg, route: '/art' },
+		{ title: 'Games', desc: 'Also another description here', image: testImg, route: '/games' },
+		{ title: 'Blog', desc: 'Also another description here', image: testImg, route: '/blog' }
+	];
+
+	let contentFocused = false;
+
+	const routes = {
+		'/about': About
+	};
 </script>
 
 <div id="main-view">
 	{#if contentFocused}
+		<Router />
 		<div
 			id="dim-overlay"
 			on:click={defocusContent}
@@ -26,7 +46,21 @@
 		<h1>Brandon Conyers</h1>
 		<!-- <h2>Developer - Artist</h2> -->
 	</div>
-	<ContentBoxMain />
+	<div id="content-box">
+		<ul id="content-list">
+			{#each homeContent as c}
+				<li>
+					<!-- ? Might need to change this from an onclick to just a link with a transition?  -->
+					<ContentItem
+						name={c.title}
+						title={c.desc}
+						thumbnail={c.image}
+						on:click={() => itemClicked(c.route)}
+					/>
+				</li>
+			{/each}
+		</ul>
+	</div>
 	<div id="social-links">
 		<ul>
 			<li>
@@ -35,8 +69,8 @@
 				</a>
 			</li>
 			<li>
-				<a href="https://github.com/Mombasa3d">
-					<img src="src\assets\icons\github.png" alt="Brandon Conyers' Linkedin page" />
+				<a href="https://github.com/Mombasa3d" target="_blank">
+					<img src="src\assets\icons\github.png" alt="Brandon Conyers' Github page" />
 				</a>
 			</li>
 		</ul>
@@ -72,6 +106,30 @@
 		backdrop-filter: blur(5px);
 	}
 
+	#content-box {
+		background-color: #111;
+		width: 100%;
+		height: 60vh;
+		padding: 0%;
+		margin: 0%;
+	}
+
+	#content-list {
+		list-style: none;
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		height: 100%;
+		padding: 0%;
+		margin: 0%;
+		justify-content: center;
+
+		li {
+			width: 20%;
+			display: flex;
+		}
+	}
+
 	h1 {
 		color: white;
 		font-family: 'Prompt', cursive;
@@ -92,9 +150,4 @@
 		height: 100px;
 		background-color: white;
 	}
-	// #home-content-box {
-	// 	width: 100vw;
-	// 	height: 58vh;
-	// 	background-color: #333;
-	// }
 </style>

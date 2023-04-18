@@ -1,18 +1,9 @@
 <script lang="ts">
-	import { circIn, cubicIn, cubicInOut, linear } from 'svelte/easing';
-	import { spread } from 'svelte/internal';
-	import { spring, tweened } from 'svelte/motion';
+	import { createEventDispatcher } from 'svelte';
+	import { expoOut } from 'svelte/easing';
+	import { tweened } from 'svelte/motion';
 
-	function rand() {
-		return Math.floor(Math.random() * 255 + 1);
-	}
-	export let name: string;
-	export let title: string;
-	export let thumbnail: string | undefined;
-
-	const activeAnimate = () => (active = !active);
-
-	const sizeSpring = tweened(0, { duration: 200, easing: linear });
+	const sizeSpring = tweened(0, { duration: 250, easing: expoOut });
 	const sizeIn = () => {
 		sizeSpring.update((val) => (val = 60));
 	};
@@ -20,10 +11,20 @@
 		sizeSpring.update((val) => (val = 0));
 	};
 
-	let active = true;
+	function rand() {
+		return Math.floor(Math.random() * 255 + 1);
+	}
+
+	export let name: string;
+	export let title: string;
+	export let thumbnail: string | undefined;
+	export const clickHandle = () => console.log('Clicked');
 </script>
 
+<!-- svelte-ignore a11y-mouse-events-have-key-events -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div
+	on:click
 	id="content-tile"
 	style="background-color: rgba({rand()}, {rand()}, {rand()}, 20%) ;"
 	{title}
@@ -31,7 +32,7 @@
 	on:mouseleave={sizeOut}
 >
 	<div id="content-tile-information">
-		<h3>{name}</h3>
+		<h2>{name}</h2>
 	</div>
 	<div id="tile-image" style="background-image: url({thumbnail}); height:{$sizeSpring}%" />
 </div>
@@ -49,7 +50,7 @@
 	}
 
 	#content-tile-information {
-		h3 {
+		h2 {
 			text-align: center;
 			font-size: 38px;
 			color: white;
