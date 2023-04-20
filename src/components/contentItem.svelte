@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { expoOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
 
@@ -19,6 +18,7 @@
 	export let title: string;
 	export let thumbnail: string | undefined;
 	export const clickHandle = () => console.log('Clicked');
+	export let route: string;
 </script>
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
@@ -27,14 +27,16 @@
 	on:click
 	id="content-tile"
 	style="background-color: rgba({rand()}, {rand()}, {rand()}, 20%) ;"
-	{title}
 	on:mouseover={sizeIn}
 	on:mouseleave={sizeOut}
 >
 	<div id="content-tile-information">
 		<h2>{name}</h2>
 	</div>
-	<div id="tile-image" style="background-image: url({thumbnail}); height:{$sizeSpring}%" />
+	<div
+		id="tile-image"
+		style="background-image: url({thumbnail}); height:{$sizeSpring}% alt:{title}"
+	/>
 </div>
 
 <style lang="scss">

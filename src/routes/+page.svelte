@@ -1,19 +1,17 @@
 <script lang="ts">
-	import { fade } from 'svelte/transition';
+	import { fade, fly, slide } from 'svelte/transition';
 	import ContentItem from '../components/contentItem.svelte';
+	import routes from '../routes';
+	import Router, { push } from 'svelte-spa-router';
 	import { goto } from '$app/navigation';
-	import About from './about/about.svelte';
-	import Router from 'svelte-spa-router';
 
 	function itemClicked(route: string) {
 		focusContent();
+		push(`${route}`);
 	}
 
 	const focusContent = () => {
-		contentFocused = true;
-	};
-	const defocusContent = () => {
-		contentFocused = false;
+		contentFocused = !contentFocused;
 	};
 
 	const testImg = 'src/assets/bubbles.png';
@@ -26,35 +24,32 @@
 	];
 
 	let contentFocused = false;
-
-	const routes = {
-		'/about': About
-	};
 </script>
 
 <div id="main-view">
 	{#if contentFocused}
-		<Router />
+		<div id="router-container" transition:fly>
+			<Router id="router" {routes} />
+		</div>
 		<div
 			id="dim-overlay"
-			on:click={defocusContent}
-			on:keydown={defocusContent}
+			on:click={focusContent}
+			on:keydown={focusContent}
 			transition:fade={{ duration: 200 }}
 		/>
 	{/if}
 	<div id="header">
 		<h1>Brandon Conyers</h1>
-		<!-- <h2>Developer - Artist</h2> -->
 	</div>
 	<div id="content-box">
 		<ul id="content-list">
 			{#each homeContent as c}
 				<li>
-					<!-- ? Might need to change this from an onclick to just a link with a transition?  -->
 					<ContentItem
 						name={c.title}
 						title={c.desc}
 						thumbnail={c.image}
+						route={c.route}
 						on:click={() => itemClicked(c.route)}
 					/>
 				</li>
@@ -130,6 +125,31 @@
 		}
 	}
 
+	#social-links {
+		padding: 20px;
+		width: 100%;
+		align-items: center;
+		display: flex;
+		justify-content: center;
+	}
+
+	#router-container {
+		z-index: 3;
+		width: 70vw;
+		position: fixed;
+		height: 90vh;
+		justify-content: center;
+		align-items: center;
+		background-color: #444;
+		display: flex;
+		flex-direction: column;
+		padding: 0 5vw;
+		border-radius: 15px;
+	}
+
+	#router {
+	}
+
 	h1 {
 		color: white;
 		font-family: 'Prompt', cursive;
@@ -148,6 +168,5 @@
 	img {
 		width: 100px;
 		height: 100px;
-		background-color: white;
 	}
 </style>
