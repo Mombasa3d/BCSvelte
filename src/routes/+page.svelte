@@ -13,19 +13,20 @@
 		contentFocused = !contentFocused;
 	};
 
-	const testImg = 'src/assets/bubbles.png';
+	const BGImg = "src/assets/galaxyBG.jpg";
+	const artImg = 'src/assets/bubbles.png';
+	const aboutImg = 'src/assets/me.jpg';
 	const homeContent: any[] = [
-		{ title: 'About', desc: 'Description here', image: testImg, route: '/about' },
-		{ title: 'Code', desc: 'Also another description here', image: testImg, route: '/code' },
-		{ title: 'Art', desc: 'Also another description here', image: testImg, route: '/art' },
-		{ title: 'Games', desc: 'Also another description here', image: testImg, route: '/games' },
-		{ title: 'Blog', desc: 'Also another description here', image: testImg, route: '/blog' }
+		{ title: 'About', desc: 'About me', image: aboutImg, route: '/about' },
+		{ title: 'Code', desc: 'My Code Projects', image: artImg, route: '/code' },
+		{ title: 'Art', desc: 'My Art', image: artImg, route: '/art' },
+		{ title: 'Games', desc: 'My Games', image: artImg, route: '/games' },
 	];
 
 	let contentFocused = false;
 </script>
 
-<div id="main-view">
+<div id="main-view" style="background: no-repeat center/100% url({BGImg});">
 	{#if contentFocused}
 		<div id="router-container" transition:fly>
 			<Router {routes} />
@@ -79,7 +80,6 @@
 		flex-direction: column;
 	}
 	#main-view {
-		background-color: black;
 		width: 100%;
 		height: 100%;
 		padding: 0;
@@ -118,13 +118,13 @@
 		justify-content: center;
 
 		li {
-			width: 20%;
+			width: 25%;
 			display: flex;
 		}
 	}
 
 	#social-links {
-		padding: 20px;
+		padding: 20px 0px;
 		width: 100%;
 		align-items: center;
 		display: flex;
