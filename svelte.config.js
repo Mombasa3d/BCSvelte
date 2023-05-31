@@ -7,7 +7,10 @@ const config = {
 	// …
 	preprocess: seqPreprocessor([preprocess(), preprocessThrelte()]),
 	kit: {
-		adapter: adapter({})
+		adapter: adapter({}),
+		files: {
+			assets: "src/assets"
+		}
 	}
 }
 
