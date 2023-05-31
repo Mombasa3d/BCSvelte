@@ -3,7 +3,6 @@
 	import ContentItem from '../components/contentItem.svelte';
 	import routes from '../routes';
 	import Router, { push } from 'svelte-spa-router';
-	import { goto } from '$app/navigation';
 
 	function itemClicked(route: string) {
 		focusContent();
@@ -29,7 +28,7 @@
 <div id="main-view">
 	{#if contentFocused}
 		<div id="router-container" transition:fly>
-			<Router id="router" {routes} />
+			<Router {routes} />
 		</div>
 		<div
 			id="dim-overlay"
@@ -49,7 +48,6 @@
 						name={c.title}
 						title={c.desc}
 						thumbnail={c.image}
-						route={c.route}
 						on:click={() => itemClicked(c.route)}
 					/>
 				</li>

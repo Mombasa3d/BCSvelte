@@ -3,11 +3,13 @@
 	import { tweened } from 'svelte/motion';
 
 	const sizeSpring = tweened(0, { duration: 250, easing: expoOut });
-	const sizeIn = () => {
+	const sizeUp = () => {
 		sizeSpring.update((val) => (val = 60));
+		console.log('size up');
 	};
-	const sizeOut = () => {
+	const sizeDown = () => {
 		sizeSpring.update((val) => (val = 0));
+		console.log('size down');
 	};
 
 	function rand() {
@@ -18,7 +20,6 @@
 	export let title: string;
 	export let thumbnail: string | undefined;
 	export const clickHandle = () => console.log('Clicked');
-	export let route: string;
 </script>
 
 <!-- svelte-ignore a11y-mouse-events-have-key-events -->
@@ -27,15 +28,17 @@
 	on:click
 	id="content-tile"
 	style="background-color: rgba({rand()}, {rand()}, {rand()}, 20%) ;"
-	on:mouseover={sizeIn}
-	on:mouseleave={sizeOut}
+	on:mouseover={sizeUp}
+	on:mouseleave={sizeDown}
+	on:focus={sizeUp}
+	on:blur={sizeDown}
 >
 	<div id="content-tile-information">
 		<h2>{name}</h2>
 	</div>
 	<div
 		id="tile-image"
-		style="background-image: url({thumbnail}); height:{$sizeSpring}% alt:{title}"
+		style="height:{$sizeSpring}%; background-image: url({thumbnail}); alt:{title}"
 	/>
 </div>
 
