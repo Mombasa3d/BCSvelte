@@ -5,5 +5,10 @@ export default defineConfig({
 	plugins: [sveltekit()],
 	ssr: {
 		noExternal: ['three', 'troika-three-text']
+	},
+	server: {
+		fs: {
+			allow: ['..']
+		}
 	}
 });

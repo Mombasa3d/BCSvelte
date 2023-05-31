@@ -13,9 +13,9 @@
 		contentFocused = !contentFocused;
 	};
 
-	const BGImg = "src/assets/galaxyBG.jpg";
-	const artImg = 'src/assets/bubbles.png';
-	const aboutImg = 'src/assets/me.jpg';
+	const BGImg = "/static/galaxyBG.jpg";
+	const artImg = '/static/bubbles.png';
+	const aboutImg = '/static/me.jpg';
 	const homeContent: any[] = [
 		{ title: 'About', desc: 'About me', image: aboutImg, route: '/about' },
 		{ title: 'Code', desc: 'My Code Projects', image: artImg, route: '/code' },
@@ -59,12 +59,12 @@
 		<ul>
 			<li>
 				<a href="https://www.linkedin.com/in/brandon-conyers" target="_blank">
-					<img src="src\assets\icons\linkedIn.png" alt="Brandon Conyers' Linkedin page" />
+					<img src="static\icons\linkedIn.png" alt="Brandon Conyers' Linkedin page" />
 				</a>
 			</li>
 			<li>
 				<a href="https://github.com/Mombasa3d" target="_blank">
-					<img src="src\assets\icons\github.png" alt="Brandon Conyers' Github page" />
+					<img src="static\icons\github.png" alt="Brandon Conyers' Github page" />
 				</a>
 			</li>
 		</ul>
