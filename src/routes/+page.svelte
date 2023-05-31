@@ -3,6 +3,11 @@
 	import ContentItem from '../components/contentItem.svelte';
 	import routes from '../routes';
 	import Router, { push } from 'svelte-spa-router';
+	import linkedinIcon from '/static/images/icons/linkedIn.png';
+	import githubIcon from '/static/images/icons/github.png';
+	import artThumbnail from '/static/images/bubbles.png';
+	import selfImage from '/static/images/me.jpg';
+	import bg from '/static/images/galaxyBG.jpg';
 
 	function itemClicked(route: string) {
 		focusContent();
@@ -13,20 +18,17 @@
 		contentFocused = !contentFocused;
 	};
 
-	const BGImg = "/static/galaxyBG.jpg";
-	const artImg = '/static/bubbles.png';
-	const aboutImg = '/static/me.jpg';
 	const homeContent: any[] = [
-		{ title: 'About', desc: 'About me', image: aboutImg, route: '/about' },
-		{ title: 'Code', desc: 'My Code Projects', image: artImg, route: '/code' },
-		{ title: 'Art', desc: 'My Art', image: artImg, route: '/art' },
-		{ title: 'Games', desc: 'My Games', image: artImg, route: '/games' },
+		{ title: 'About', desc: 'About me', image:selfImage, route: '/about' },
+		{ title: 'Code', desc: 'My Code Projects', image: bg, route: '/code' },
+		{ title: 'Art', desc: 'My Art', image: artThumbnail, route: '/art' },
+		{ title: 'Games', desc: 'My Games', image: artThumbnail, route: '/games' },
 	];
 
 	let contentFocused = false;
 </script>
 
-<div id="main-view" style="background: no-repeat center/100% url({BGImg});">
+<div id="main-view" style="background: no-repeat center/100% url({bg});">
 	{#if contentFocused}
 		<div id="router-container" transition:fly>
 			<Router {routes} />
@@ -59,12 +61,12 @@
 		<ul>
 			<li>
 				<a href="https://www.linkedin.com/in/brandon-conyers" target="_blank">
-					<img src="static\icons\linkedIn.png" alt="Brandon Conyers' Linkedin page" />
+					<img src={linkedinIcon} alt="Brandon Conyers' Linkedin page" />
 				</a>
 			</li>
 			<li>
 				<a href="https://github.com/Mombasa3d" target="_blank">
-					<img src="static\icons\github.png" alt="Brandon Conyers' Github page" />
+					<img src={githubIcon} alt="Brandon Conyers' Github page" />
 				</a>
 			</li>
 		</ul>
